@@ -16,12 +16,11 @@ Screenshots
 Here are a few screenshots to show you what the app looks like in action.
 
 Screenshot 1: Activity Dashboard
-(Screenshots/img1.jpg)
-"A view of the main dashboard with a list of recent activities and a summary of workout stats."
+!["A view of the main dashboard with a list of recent activities and a summary of workout stats."](Screenshots/img1.jpg)
 
 Screenshot 2: Personalized Recommendations
-(Screenshots/img2.jpg)
-"The personalized recommendations page, with suggestions for new exercises and routines."
+!["The personalized recommendations page, with suggestions for new exercises and routines."](Screenshots/img2.jpg)
+
 
 Getting Started
 Follow these instructions to set up and run the project locally.
