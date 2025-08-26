@@ -1,78 +1,169 @@
-This is the Official repository of **Java Spring Boot AI Full Stack Microservices Course: Building Fitness Application**
+Fitness App Microservices
 
-# The Ultimate Java and Spring Boot Mastery Roadmap
+A Java Spring Boot Microservices project for a fitness application with multiple independent services communicating via REST, RabbitMQ, and Kafka. The system uses Eureka for service discovery, Config Server for centralized configuration, API Gateway for routing, and SpringAI integration for AI-based services.
 
-Welcome to your one-stop-shop for mastering Java and Spring Boot! This repository offers a comprehensive learning experience with high-quality resources and community support. Dive into over 150+ hours of premium content, with everything you need to excel at Java and Spring Boot development.
+Table of Contents
 
-## 🎓 Learning Roadmap
+Features
 
-Most of the courses below are available in **Udemy For Business**, so if you have subscription - you can get FREE access.
-Here’s a structured path to enhance your skills with detailed courses available:
+Technologies
 
-1. **[Spring Boot By Building Complex Projects Step by Step](https://link.embarkx.com/spring-boot) (85+ Hours of Content)**
-2. **[Master Spring Boot Microservices by Building eCommerce Project](https://link.embarkx.com/microservices) (55+ Hours of Content)**
-3. **[Learn Java with 60+ Hours of Content](http://link.embarkx.com/java) (60+ Hours of Content)**
-4. **[Master Spring Security with React JS + OAuth2](https://link.embarkx.com/spring-security) (34+ Hours of Content)**
-5. **[Master IntelliJ IDEA](http://link.embarkx.com/intellij) (3+ Hours of Content)**
+Architecture
+
+Requirements
+
+Setup & Run
+
+Microservices Overview
+
+Testing
+
+Notes
+
+Features
+
+Microservice architecture with independent deployable services.
+
+Centralized configuration with Spring Cloud Config Server.
+
+Service discovery using Eureka Server.
+
+API Gateway for routing and security.
+
+Event-driven communication via RabbitMQ and Kafka.
+
+Data persistence using PostgreSQL and MongoDB.
+
+AI service integration via SpringAI / OpenAI API.
+
+Monitoring endpoints using Spring Boot Actuator.
+
+Technologies
+
+Java 17/23
+
+Spring Boot 3.4
+
+Spring Cloud (Eureka, Config, Gateway)
+
+Spring Data JPA + PostgreSQL
+
+Spring Data MongoDB
+
+RabbitMQ & Kafka
+
+SpringAI (OpenAI)
+
+Docker & Docker Compose
+
+Maven
+
+Architecture
+              +-----------------+
+              |   API Gateway    |
+              +-----------------+
+                      |
+        +---------------------------+
+        |           Eureka          |
+        +---------------------------+
+          |         |        |
++---------+  +-------------+  +------------+
+| UserService | ActivityService | AI Service |
++---------+  +-------------+  +------------+
+          |           |        |
+       PostgreSQL     MongoDB   RabbitMQ/Kafka
 
 
-## 🌟 With All Our Courses You Gain Access To
+Config Server: Centralized configuration for all microservices.
 
-- 📝 **Notes:** Detailed and downloadable notes to accompany each lesson.
-- 💻 **Source Code:** Full access to the source code used in the tutorials.
-- 🤔 **Doubt Solving:** Responsive instructor and community support.
-- 🎥 **High-Quality HD Videos:** Easy to understand, high-definition video tutorials.
-- 🔄 **Free Lifetime Updates:** Continuous updates to course content at no extra cost.
+Eureka Server: Service registry and discovery.
 
-## 📚 Why Choose This Mastery Series?
+Gateway: Routes external requests to appropriate services.
 
-With this series, you're not just learning; you're preparing to dominate the field of Java and Spring Boot development. Our structured learning path ensures that you build your skills progressively, with each course designed to build on the knowledge gained from the previous one.
+Userservice: Handles user management (Postgres DB).
 
-### Join Us Now!
+ActivityService: Tracks user activity (MongoDB + RabbitMQ).
 
-Start your journey today to become a master at Java and Spring Boot. Our community and expert instructors are here to support your learning every step of the way. **Enroll and start building your future, today!**
+AI Service: Provides AI-powered recommendations using SpringAI.
+
+Kafka & RabbitMQ: Event streaming and message queue.
+
+Requirements
+
+Docker Desktop (with WSL2 on Windows)
+
+Java 17/23
+
+Maven 3.8+
+
+Optional: Postman or curl for testing
+
+Setup & Run
+1. Start Dependencies (Docker)
+docker-compose up -d
 
 
+This will start:
+
+MongoDB → 27017
+
+PostgreSQL → 5432
+
+RabbitMQ → 5672 (management UI: 15672)
+
+Zookeeper → 2181
+
+Kafka → 9092
+
+Check with:
+
+docker ps
+
+2. Run Config Server
+cd configserver
+mvn spring-boot:run
 
 
+Port: 8888
 
-# Usage Policy for Course Materials
+Config URL: http://localhost:8888
 
-## Instructor Information
+3. Run Eureka Server
+cd eureka
+mvn spring-boot:run
 
-**Instructor:** Faisal Memon  
-**Company:** [EmbarkX.com](http://www.embarkx.com)
 
-## Policy Overview
+Port: 8761
 
-This document outlines the guidelines and restrictions concerning the use of course materials provided by EmbarkX, including but not limited to PDF presentations, code samples, and video tutorials.
+Dashboard: http://localhost:8761
 
-### 1. Personal Use Only
+4. Run Microservices
 
-The materials provided in this course are intended for **your personal use only**. They are to be used solely for the purpose of learning and completing this course.
+Userservice (Postgres):
 
-### 2. No Unauthorized Sharing or Distribution
+cd userservice
+mvn spring-boot:run
 
-You are **not permitted** to share, distribute, or publicly post any course materials on any websites, social media platforms, or other public forums without prior written consent from the instructor.
 
-### 3. Intellectual Property
+ActivityService (Mongo + RabbitMQ):
 
-All course materials are protected by copyright laws and are the intellectual property of Faisal Memon and EmbarkX. Unauthorized use, reproduction, or distribution of these materials is **strictly prohibited**.
+cd activityservice
+mvn spring-boot:run
 
-### 4. Reporting Violations
 
-If you become aware of any unauthorized sharing or distribution of course materials, please report it immediately to [embarkxofficial@gmail.com](mailto:embarkxofficial@gmail.com).
+AI Service (Mongo + RabbitMQ + SpringAI):
 
-### 5. Legal Action
+cd aiservice
+export SPRING_AI_OPENAI_API_KEY="sk_XXXX"  # Linux/mac
+# OR PowerShell (Windows):
+# setx SPRING_AI_OPENAI_API_KEY "sk_XXXX"
+mvn spring-boot:run
 
-We reserve the right to take legal action against individuals or entities found to be violating this usage policy.
+5. Run API Gateway
+cd gateway
+mvn spring-boot:run
 
-## Thank You
 
-Thank you for respecting these guidelines and helping us maintain the integrity of our course materials.
+Default port: 8080
 
-## Contact Information
-
-- **Email:** [embarkxofficial@gmail.com](mailto:embarkxofficial@gmail.com)
-- **Website:** [www.embarkx.com](http://www.embarkx.com)
-
+Test route: http://localhost:8080/<service-endpoint>
