@@ -1,169 +1,85 @@
-Fitness App Microservices
-
-A Java Spring Boot Microservices project for a fitness application with multiple independent services communicating via REST, RabbitMQ, and Kafka. The system uses Eureka for service discovery, Config Server for centralized configuration, API Gateway for routing, and SpringAI integration for AI-based services.
-
-Table of Contents
+Fitness Tracker App
+Welcome to the Fitness Tracker App! This application is designed to help you log and track your workouts, visualize your progress, and get personalized recommendations to improve your fitness journey.
 
 Features
+This app provides a comprehensive solution for managing your fitness activities with the following key features:
 
-Technologies
+Log Workouts: Easily record your workouts, including type, duration, and intensity.
 
-Architecture
+View Activities: See a detailed list and history of all your recorded workouts.
 
-Requirements
+Personalized Recommendations: Get tailored suggestions on new exercises, workout routines, and fitness goals based on your activity data.
 
-Setup & Run
+Progress Visualization: Understand your fitness habits and trends through clear, visual representations of your data.
 
-Microservices Overview
+Screenshots
+Here are a few screenshots to show you what the app looks like in action.
 
-Testing
+Screenshot 1: Activity Dashboard
+(Screenshots/img1.jpg)
+"A view of the main dashboard with a list of recent activities and a summary of workout stats."
 
-Notes
+Screenshot 2: Personalized Recommendations
+(Screenshots/img2.jpg)
+"The personalized recommendations page, with suggestions for new exercises and routines."
 
-Features
+Getting Started
+Follow these instructions to set up and run the project locally.
 
-Microservice architecture with independent deployable services.
+Prerequisites
+Node.js (v14.x or later)
 
-Centralized configuration with Spring Cloud Config Server.
+npm or yarn
 
-Service discovery using Eureka Server.
+Installation
+Clone the repository:
 
-API Gateway for routing and security.
+git clone https://github.com/your-username/your-repo-name.git
 
-Event-driven communication via RabbitMQ and Kafka.
+Navigate to the project directory:
 
-Data persistence using PostgreSQL and MongoDB.
+cd your-repo-name
 
-AI service integration via SpringAI / OpenAI API.
+Install dependencies:
 
-Monitoring endpoints using Spring Boot Actuator.
+npm install
+# or
+yarn install
 
-Technologies
+Running the App
+Start the development server:
 
-Java 17/23
+npm start
+# or
+yarn start
 
-Spring Boot 3.4
+The app will be available at http://localhost:3000.
 
-Spring Cloud (Eureka, Config, Gateway)
+Built With
+React - The web framework used
 
-Spring Data JPA + PostgreSQL
+Redux - State management
 
-Spring Data MongoDB
+Material-UI - UI components
 
-RabbitMQ & Kafka
+ - Database, backend, etc.
 
-SpringAI (OpenAI)
+Backend Architecture
+The backend is built using a microservices architecture to ensure scalability and maintainability.
 
-Docker & Docker Compose
+UserService: Manages user accounts and authentication, utilizing PostgreSQL for data persistence.
 
-Maven
+ActivityService: Tracks all user activities and workouts, with data stored in a MongoDB database.
 
-Architecture
-              +-----------------+
-              |   API Gateway    |
-              +-----------------+
-                      |
-        +---------------------------+
-        |           Eureka          |
-        +---------------------------+
-          |         |        |
-+---------+  +-------------+  +------------+
-| UserService | ActivityService | AI Service |
-+---------+  +-------------+  +------------+
-          |           |        |
-       PostgreSQL     MongoDB   RabbitMQ/Kafka
+AI Service: Provides personalized activity recommendations using SpringAI and OpenAI.
 
+Config Server: Centralized configuration management for all microservices.
 
-Config Server: Centralized configuration for all microservices.
+Eureka Server: Enables service discovery, allowing microservices to dynamically register and locate each other.
 
-Eureka Server: Service registry and discovery.
+API Gateway: Serves as a single entry point for all client requests, handling routing and security.
 
-Gateway: Routes external requests to appropriate services.
+Messaging & Event Streaming: Uses RabbitMQ for asynchronous communication and Kafka for handling activity and event streams.
 
-Userservice: Handles user management (Postgres DB).
+Docker: All databases and brokers are containerized for easy and consistent local development.
 
-ActivityService: Tracks user activity (MongoDB + RabbitMQ).
-
-AI Service: Provides AI-powered recommendations using SpringAI.
-
-Kafka & RabbitMQ: Event streaming and message queue.
-
-Requirements
-
-Docker Desktop (with WSL2 on Windows)
-
-Java 17/23
-
-Maven 3.8+
-
-Optional: Postman or curl for testing
-
-Setup & Run
-1. Start Dependencies (Docker)
-docker-compose up -d
-
-
-This will start:
-
-MongoDB → 27017
-
-PostgreSQL → 5432
-
-RabbitMQ → 5672 (management UI: 15672)
-
-Zookeeper → 2181
-
-Kafka → 9092
-
-Check with:
-
-docker ps
-
-2. Run Config Server
-cd configserver
-mvn spring-boot:run
-
-
-Port: 8888
-
-Config URL: http://localhost:8888
-
-3. Run Eureka Server
-cd eureka
-mvn spring-boot:run
-
-
-Port: 8761
-
-Dashboard: http://localhost:8761
-
-4. Run Microservices
-
-Userservice (Postgres):
-
-cd userservice
-mvn spring-boot:run
-
-
-ActivityService (Mongo + RabbitMQ):
-
-cd activityservice
-mvn spring-boot:run
-
-
-AI Service (Mongo + RabbitMQ + SpringAI):
-
-cd aiservice
-export SPRING_AI_OPENAI_API_KEY="sk_XXXX"  # Linux/mac
-# OR PowerShell (Windows):
-# setx SPRING_AI_OPENAI_API_KEY "sk_XXXX"
-mvn spring-boot:run
-
-5. Run API Gateway
-cd gateway
-mvn spring-boot:run
-
-
-Default port: 8080
-
-Test route: http://localhost:8080/<service-endpoint>
