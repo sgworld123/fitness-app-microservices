@@ -82,3 +82,9 @@ Messaging & Event Streaming: Uses RabbitMQ for asynchronous communication and Ka
 
 Docker: All databases and brokers are containerized for easy and consistent local development.
 
+## 🌹 Thanks for Visiting
+
+Hope you enjoyed exploring this project. If it was worth your time, a star would be much appreciated!
+
+![rose](https://media.giphy.com/media/Zl7u48zLVFgLpRwq6f/giphy.gif)
+
